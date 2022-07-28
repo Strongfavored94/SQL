@@ -1,0 +1,37 @@
+--"Project: Design a store database"
+CREATE TABLE dvds (id integer primary key, name text, dollars integer, sold integer, rated text);
+INSERT INTO dvds VALUES (1,"Selena",10,20,"PG");
+INSERT INTO dvds VALUES (2,"The Chronicles of Narnia",11, 25,"G");
+INSERT INTO dvds VALUES (3,"Grown Ups",14,23,"TEEN");
+INSERT INTO dvds VALUES (4,"Grown Ups Two",14,24,"TEEN");
+INSERT INTO dvds VALUES(5,"The Pink Panther",11,25,"TEEN");
+INSERT INTO dvds VALUES (6,"There’s Something About Mary",10,26,"TEEN");
+INSERT INTO dvds VALUES (7, "Baby Boy", 11, 27, "R");
+INSERT INTO dvds VALUES (8,"Frida",10,28,"R");
+INSERT INTO dvds VALUES (9,"Moesha",10,30,"PG");
+INSERT INTO dvds VALUES (10,"The Parkers",10,35,"PG");
+INSERT INTO dvds VALUES (11,"Girlfriends",12,33,"PG");
+INSERT INTO dvds VALUES (12,"Sister Sister",12,32,"G");
+INSERT INTO dvds VALUES (13,"Proud Family",13,31,"G");
+INSERT INTO dvds VALUES(14,"Powerpuff Girls",13,29,"G");
+INSERT INTO dvds VALUES(15,"The Cheetah Girls",13,26,"G");
+
+
+SELECT *FROM dvds;
+
+SELECT *FROM dvds ORDER BY dollars ASC;
+
+--display the database ordered by dollars
+SELECT *FROM dvds
+ORDER BY dollars asc;
+
+--what is the avg price of items in the bulk section?
+SELECT AVG(price) "avg bulk item price"
+FROM dvds
+where section= 'bulk';
+
+--what are the most 5 popular items?
+SELECT item, price, popularity
+FROM dvds
+order by popularity desc
+limit 5;
