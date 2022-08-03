@@ -16,22 +16,11 @@ INSERT INTO dvds VALUES (13,"Proud Family",13,31,"G");
 INSERT INTO dvds VALUES(14,"Powerpuff Girls",13,29,"G");
 INSERT INTO dvds VALUES(15,"The Cheetah Girls",13,26,"G");
 
-
+--choose from available dvds.
 SELECT *FROM dvds;
 
+--what is the order of dvd prices from least to greatest?
 SELECT *FROM dvds ORDER BY dollars ASC;
 
---display the database ordered by dollars
-SELECT *FROM dvds
-ORDER BY dollars asc;
 
---what is the avg price of items in the bulk section?
-SELECT AVG(price) "avg bulk item price"
-FROM dvds
-where section= 'bulk';
 
---what are the most 5 popular items?
-SELECT item, price, popularity
-FROM dvds
-order by popularity desc
-limit 5;
