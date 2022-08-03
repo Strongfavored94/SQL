@@ -1,0 +1,61 @@
+CREATE TABLE superbowls (id integer primary key, sb integer, winner text, winner_points integer, loser text, loser_points integer);
+
+INSERT INTO
+superbowls
+VALUES
+(1,54,'Kansas City Chiefs',31,'San Francisco 49ers',20),
+(2,53,'New England Patriots',13,'Los Angeles Rams',3),
+(3,52,'Philadelphia Eagles',41,'New England Patriots',33),
+(4,51,'New England Patriots',34, 'Atlanta Falcons',28),
+(5,49,'New England Patriots',28, 'Seattle Seahawks',24),
+(6,48,'Seattle Seahawks',43,'Denver Broncos',8),
+(7,47,'Baltimore Ravens',34, 'San Francisco 49ers',31),
+(8,46,'New York Giants',21,'New England Patriots',17),
+(9,45,'Green Bay Packers',31,'Pittsburgh Steelers',25),
+(10,44,'New Orleans Saints',31,'Indianapolis Colts',17),
+(11,43,'Pittsburgh Steelers',27,'Arizona Cardinals',23),
+(12,42,'New York Giants',17,'New England Patriots',14),
+(13,41,'Indianapolis Colts',29,'Chicago Bears',17),
+(14,40,'Pittsburgh Steelers',21,'Seattle Seahawks',10),
+(15,39,'New England Patriots',24,'Philadelphia Eagles',21),
+(16,38,'New England Patriots',32,'Carolina Panthers',29),
+(17,37,'Tampa Bay Buccaneers',48,'Oakland Raiders',21),
+(18,36,'New England Patriots',20,'St. Louis Rams',17),
+(19,35,'Baltimore Ravens',34,'New York Giants',7),
+(20,34,'St. Louis Rams',23,'Tennessee Titans',16)
+;
+
+--what is the highest score of the winning team?
+SELECT MAX (winner_points)
+FROM superbowls;
+
+--what is the lowest score of the losing team?
+SELECT MIN (loser_points)
+FROM superbowls;
+
+--what is the average losing score of the losing team?
+SELECT AVG (loser_points)
+FROM superbowls;
+
+--which place meets the 'winner' criteria?
+SELECT 
+
+CASE
+
+WHEN winner_points > 40 THEN 'first place'
+
+WHEN winner_points > 30 THEN 'second place'
+
+WHEN winner_points > 20 THEN 'third place'
+
+ELSE 'lose'
+
+END as 'winner' FROM superbowls
+
+GROUP BY 'winning team';
+
+--which team(s) won with a score of 41, or a score less than 40?
+SELECT winner FROM superbowls WHERE winner_points=41 OR winner_points <40;
+
+--which team(s) won with a score that is 43 or greater, and which team won with a score that is 30 or greater?
+SELECT winner FROM superbowls WHERE winner_points >=43 AND winner_points>=30;
