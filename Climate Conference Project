@@ -1,0 +1,103 @@
+Question: Which VIPs are associated with which events?
+
+SELECT
+    v.first_name,
+    v.last_name,
+    e.event_name,
+    e.event_type
+FROM vips v
+INNER JOIN events e
+    ON v.event = e.event_id;
+
+
+Question: Which VIPs have hotel reservations (and which don’t)?
+
+
+SELECT
+    v.first_name,
+    v.last_name,
+    r.hotel
+FROM vips v
+LEFT JOIN reservations r
+    ON v.member_id = r.member_id;
+
+Question: Which VIPs are staying at which hotels?
+
+
+SELECT
+    v.first_name,
+    v.last_name,
+    h.hotel_name,
+    h.address
+FROM vips v
+JOIN reservations r
+    ON v.member_id = r.member_id
+JOIN hotels h
+    ON r.hotel = h.hotel_id;
+
+
+Who RSVP’d “yes” to the welcome party?
+
+SELECT
+    v.first_name,
+    v.last_name
+FROM vips v
+JOIN reservations r
+    ON v.member_id = r.member_id
+WHERE r.welcome_rsvp = 1;
+
+
+Question: Which VIPs are attending 
+workshops?
+
+SELECT
+    first_name,
+    last_name
+FROM vips
+WHERE event IN (
+    SELECT event_id
+    FROM events
+    WHERE event_type = 'Workshop'
+);
+
+Which VIPs are providing feedback to other VIPs?
+
+SELECT
+    v1.first_name AS vip_name,
+    v2.first_name AS feedback_for
+FROM vips v1
+JOIN vips v2
+    ON v1.provides_feedback_to = v2.member_id;
+
+Which events have the highest VIP attendance?
+
+SELECT
+    e.event_name,
+    COUNT(r.member_id) AS vip_count
+FROM events e
+JOIN reservations r
+    ON e.event_id = r.event
+GROUP BY e.event_name
+ORDER BY vip_count DESC;
+
+Which VIPs are the most engaged across events?
+SELECT
+    v.first_name,
+    v.last_name,
+    COUNT(r.event) AS events_attended
+FROM vips v
+JOIN reservations r
+    ON v.member_id = r.member_id
+GROUP BY v.first_name, v.last_name
+HAVING COUNT(r.event) > 1
+ORDER BY events_attended DESC;
+
+
+
+
+
+
+
+
+
+
