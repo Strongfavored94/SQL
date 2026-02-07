@@ -1,0 +1,59 @@
+Question 1: Who worked which shifts and for how many hours?
+
+SELECT 
+    e.employee_name,
+    e.role,
+    s.shift_date,
+    s.shift_type,
+    s.department,
+    sa.hours_worked,
+    sa.overtime_hours
+FROM shift_assignments sa
+INNER JOIN employees e
+    ON sa.employee_id = e.employee_id
+INNER JOIN shifts s
+    ON sa.shift_id = s.shift_id
+ORDER BY s.shift_date;
+Question 2: How much overtime is being worked by department?
+SELECT 
+    s.department,
+    SUM(sa.overtime_hours) AS total_overtime_hours
+FROM shift_assignments sa
+INNER JOIN shifts s
+    ON sa.shift_id = s.shift_id
+GROUP BY s.department;
+Question 3: Staffing vs patient volume (Are we understaffed?)
+SELECT 
+    s.shift_date,
+    s.department,
+    COUNT(sa.employee_id) AS staff_count,
+    pc.patient_count
+FROM shifts s
+LEFT JOIN shift_assignments sa
+    ON s.shift_id = sa.shift_id
+LEFT JOIN patient_census pc
+    ON s.shift_date = pc.census_date
+    AND s.department = pc.department
+GROUP BY s.shift_date, s.department, pc.patient_count;
+
+Question 4: What is the estimated labor cost per shift?
+SELECT 
+    s.shift_date,
+    s.shift_type,
+    s.department,
+    SUM(sa.hours_worked * e.hourly_rate) AS total_labor_cost
+FROM shift_assignments sa
+INNER JOIN employees e
+    ON sa.employee_id = e.employee_id
+INNER JOIN shifts s
+    ON sa.shift_id = s.shift_id
+GROUP BY s.shift_date, s.shift_type, s.department;
+
+
+
+
+
+
+
+
+
