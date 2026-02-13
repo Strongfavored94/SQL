@@ -1,0 +1,36 @@
+CREATE TABLE writers( id integer primary key, name text, origin text);
+
+INSERT INTO 
+writers
+VALUES
+(1,'Elton John','Pinner United Kingdom'),
+(2,'Beyonce','Texas'),
+(3,'Cyndi Lauper','Brooklyn New York'),
+(4,'Sia','Australia'),
+(5,'Bob Marley','Kingston Jamaica'),
+(6,'Jessie J','Seven King United Kingdom'),
+(7,'Ed Sheeran','Halifax United Kingdom'),
+(8,'Julia Michaels','Santa Clarita California')
+;
+
+CREATE TABLE songs( id integer primary key, writer_id text,song text);
+
+INSERT INTO
+songs
+VALUES
+(1,'A','Your Song'),
+(2,'B','Single Ladies'),
+(3,'C','Time After Time'),
+(4,'D','Diamonds'),
+(5,'E','Jamming'),
+(6,'F','Party In The USA'),
+(7,'G','Love Yourself'),
+(8,'H','Sorry')
+;
+--combine all the data in an organized table.
+/*implicit inner join*/
+SELECT * FROM songs, writers
+WHERE songs.writer_id = writers.id
+;
+
+
